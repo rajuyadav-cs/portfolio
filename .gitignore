@@ -1,0 +1,57 @@
+# =====================
+# Django
+# =====================
+backend/.env
+backend/.venv/
+backend/venv/
+backend/__pycache__/
+backend/**/*.pyc
+backend/db.sqlite3
+backend/media/
+
+# =====================
+# Next.js
+# =====================
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+
+# Environment files
+frontend/.env
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.production.local
+frontend/.env.test.local
+
+# Logs
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+frontend/pnpm-debug.log*
+
+# =====================
+# IDE
+# =====================
+.vscode/
+.idea/
+
+# =====================
+# OS Files
+# =====================
+.DS_Store
+Thumbs.db
+
+# =====================
+# Python
+# =====================
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+
+# =====================
+# Misc
+# =====================
+coverage/
+dist/
+build/
