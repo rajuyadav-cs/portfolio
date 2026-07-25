@@ -24,7 +24,7 @@ export default function ClientLayout() {
       id="about"
       className="relative flex h-screen flex-col overflow-hidden bg-background"
     >
-      <div className="absolute inset-0 bg-[url('/bgimg.png')] bg-cover bg-center bg-no-repeat opacity-30 pointer-events-none" />
+      <div className="absolute inset-0 bg-[url('/bgimg.jpg')] bg-cover bg-center bg-no-repeat opacity-30 pointer-events-none" />
       <Header />
 
       <main className="overflow-hidden flex flex-1 min-h-0 gap-2 p-2 sm:gap-4 sm:p-4 md:gap-6 md:p-6 lg:gap-8 lg:p-8">
