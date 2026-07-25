@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { ArrowUp, Mail } from "lucide-react";
+import { ArrowUp, Mail, Shield } from "lucide-react";
 import { FaGithub, FaLinkedin } from "react-icons/fa6";
 import { motion } from "framer-motion";
 
@@ -39,7 +39,6 @@ export default function Footer() {
     <footer className="mt-20 border-t border-white/10">
       <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-10 px-5 py-10 sm:px-8 lg:flex-row lg:px-12">
         {/* Left */}
-
         <div className="text-center lg:text-left">
           <h2 className="text-2xl font-bold">{hero.name}</h2>
 
@@ -49,7 +48,6 @@ export default function Footer() {
         </div>
 
         {/* Social */}
-
         <div className="flex items-center gap-4">
           <Link
             href={hero.github_url}
@@ -89,8 +87,20 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="border-t border-white/10 py-6 text-center text-sm text-muted-foreground">
-        © {new Date().getFullYear()} {hero.name}. All rights reserved.
+      {/* Bottom */}
+      <div className="flex flex-col items-center justify-between gap-4 border-t border-white/10 px-5 py-6 text-sm text-muted-foreground sm:flex-row sm:px-8 lg:px-12">
+        <p>
+          © {new Date().getFullYear()} {hero.name}. All rights reserved.
+        </p>
+
+        <Link
+          href="https://portfolio-qq6y.onrender.com/admin/"
+          target="_blank"
+          className="flex items-center gap-2 rounded-xl border border-white/10 bg-card px-3 py-2 transition-all duration-300 hover:border-primary hover:text-primary"
+        >
+          <Shield size={16} />
+          <span>Admin Panel</span>
+        </Link>
       </div>
     </footer>
   );
