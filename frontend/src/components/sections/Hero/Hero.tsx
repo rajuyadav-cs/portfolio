@@ -114,8 +114,8 @@ export default function Hero() {
 
           {/* Desktop Button */}
           <div className="mt-10 hidden lg:block">
-            <a href={hero.resume} target="_blank" rel="noopener noreferrer">
-              <MagicButton text="Download Resume" />
+            <a href="#contact" rel="noopener noreferrer">
+              <MagicButton text="Contact Me" />
             </a>
           </div>
 
@@ -182,8 +182,8 @@ export default function Hero() {
           />
 
           <div className="mt-8">
-            <a href="#contact" target="_blank" rel="noopener noreferrer">
-              <MagicButton text="Download Resume" />
+            <a href="#contact" rel="noopener noreferrer">
+              <MagicButton text="Contact Me" />
             </a>
           </div>
 
