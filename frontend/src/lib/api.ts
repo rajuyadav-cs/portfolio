@@ -1,7 +1,7 @@
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export async function getHero() {
-  const res = await fetch(`${API_URL}/hero/`, {
+  const res = await fetch(`${API_URL}api/hero/`, {
     cache: "no-store",
   });
 
@@ -11,7 +11,7 @@ export async function getHero() {
 }
 
 export async function getAbout() {
-  const res = await fetch(`${API_URL}/about/`, {
+  const res = await fetch(`${API_URL}api/about/`, {
     cache: "no-store",
   });
 
@@ -21,7 +21,7 @@ export async function getAbout() {
 }
 
 export async function getSkills() {
-  const res = await fetch(`${API_URL}/skills/`, {
+  const res = await fetch(`${API_URL}api/skills/`, {
     cache: "no-store",
   });
 
@@ -31,7 +31,7 @@ export async function getSkills() {
 }
 
 export async function getProjects() {
-  const res = await fetch(`${API_URL}/projects/`, {
+  const res = await fetch(`${API_URL}api/projects/`, {
     cache: "no-store",
   });
 
@@ -41,7 +41,7 @@ export async function getProjects() {
 }
 
 export async function getExperience() {
-  const res = await fetch(`${API_URL}/experience/`, {
+  const res = await fetch(`${API_URL}api/experience/`, {
     cache: "no-store",
   });
 
@@ -53,7 +53,7 @@ export async function getExperience() {
 }
 
 export async function getCertifications() {
-  const res = await fetch(`${API_URL}/certifications/`, {
+  const res = await fetch(`${API_URL}api/certifications/`, {
     cache: "no-store",
   });
 
@@ -65,7 +65,7 @@ export async function getCertifications() {
 }
 
 export async function getEducation() {
-  const res = await fetch(`${API_URL}/education/`, {
+  const res = await fetch(`${API_URL}api/education/`, {
     cache: "no-store",
   });
 
@@ -82,7 +82,7 @@ export async function sendContactMessage(data: {
   subject: string;
   message: string;
 }) {
-  const res = await fetch(`${API_URL}/contact/`, {
+  const res = await fetch(`${API_URL}api/contact/`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
