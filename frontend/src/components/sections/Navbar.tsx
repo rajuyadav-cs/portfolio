@@ -25,11 +25,11 @@ export default function SideBar({ open, setOpen }: NavbarProps) {
 
   const navItems = [
     { name: "Home", icon: House, href: "#home" },
-    { name: "About", icon: User, href: "#About" },
-    { name: "Skills", icon: Code2, href: "#skills" },
     { name: "Projects", icon: FolderGit2, href: "#projects" },
+    { name: "Skills", icon: Code2, href: "#skills" },
     { name: "Experience", icon: BriefcaseBusiness, href: "#experience" },
     { name: "Certifications", icon: Award, href: "#certifications" },
+    { name: "About", icon: User, href: "#About" },
     { name: "Education", icon: FileText, href: "#education" },
     { name: "Contact", icon: Mail, href: "#contact" },
   ];

@@ -63,14 +63,6 @@ export default function Header() {
 
         {/* Actions */}
         <div className="flex items-center gap-2">
-          <Button
-            variant="ghost"
-            size="icon"
-            className="rounded-xl border border-border bg-background/40 transition-all duration-300 hover:bg-white/5 hover:border-primary/40 hover:text-primary"
-          >
-            <MoonStar className="h-5 w-5" />
-          </Button>
-
           <Button className="rounded-xl bg-linear-to-r from-blue-600 to-violet-600 px-4 text-white shadow-lg shadow-blue-500/20 tracking-widest transition-all duration-300 hover:scale-105 hover:from-blue-500 hover:to-violet-500 hover:shadow-blue-500/40">
             <a href={hero?.resume} target="_blank" rel="noopener noreferrer">
               Resume

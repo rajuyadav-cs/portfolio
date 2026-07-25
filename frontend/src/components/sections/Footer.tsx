@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ArrowUp, Mail } from "lucide-react";
 import { FaGithub, FaLinkedin } from "react-icons/fa6";
+import { motion } from "framer-motion";
 
 import { getHero } from "@/lib/api";
 
@@ -73,17 +74,18 @@ export default function Footer() {
             <Mail size={20} />
           </Link>
 
-          <button
-            onClick={() =>
-              window.scrollTo({
-                top: 0,
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => {
+              document.getElementById("home")?.scrollIntoView({
                 behavior: "smooth",
-              })
-            }
-            className="rounded-2xl bg-primary p-3 text-primary-foreground transition-transform duration-300 hover:scale-105"
+              });
+            }}
+            className="rounded-2xl bg-primary p-3 text-primary-foreground"
           >
             <ArrowUp size={18} />
-          </button>
+          </motion.button>
         </div>
       </div>
 

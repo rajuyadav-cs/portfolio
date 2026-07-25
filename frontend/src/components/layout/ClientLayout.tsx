@@ -45,11 +45,11 @@ export default function ClientLayout() {
           )}
         >
           <Hero />
-          <About />
-          <Skills />
           <Projects />
+          <Skills />
           <Experience />
           <Certifications />
+          <About />
           <Education />
           <Contact />
           <Footer />
