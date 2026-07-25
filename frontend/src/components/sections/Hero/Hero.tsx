@@ -182,7 +182,7 @@ export default function Hero() {
           />
 
           <div className="mt-8">
-            <a href={hero.resume} target="_blank" rel="noopener noreferrer">
+            <a href="#contact" target="_blank" rel="noopener noreferrer">
               <MagicButton text="Download Resume" />
             </a>
           </div>
