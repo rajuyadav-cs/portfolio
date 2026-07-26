@@ -1,44 +1,16 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { ExternalLink, Star } from "lucide-react";
 import { FaGithub } from "react-icons/fa6";
 
-import { getProjects } from "@/lib/api";
+import { ProjectInterface } from "@/types";
 
-interface Skill {
-  id: number;
-  name: string;
+interface ProjectProps {
+  data: ProjectInterface[];
 }
 
-interface Project {
-  id: number;
-  title: string;
-  description: string;
-  image: string;
-  github_url: string;
-  live_url: string;
-  featured: boolean;
-  skills: Skill[];
-}
-
-export default function Projects() {
-  const [projects, setProjects] = useState<Project[]>([]);
-
-  useEffect(() => {
-    async function fetchProjects() {
-      try {
-        const data = await getProjects();
-        setProjects(data);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    fetchProjects();
-  }, []);
-
+export default function Projects({ data }: ProjectProps) {
   return (
     <section
       id="projects"
@@ -67,14 +39,14 @@ export default function Projects() {
       {/* Projects Grid */}
 
       <div className="grid gap-10 lg:grid-cols-2">
-        {projects.map((project, index) => (
+        {data.map((project, index) => (
           <motion.article
             key={project.id}
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: index * 0.1 }}
-            className="group overflow-hidden rounded-3xl border border-white/10 bg-card transition-all duration-300 hover:-translate-y-2 hover:border-primary/20 hover:shadow-2xl hover:shadow-primary/10"
+            className="group overflow-hidden rounded-3xl border border-border bg-card transition-all duration-300 hover:-translate-y-2 hover:border-primary/20 hover:shadow-2xl hover:shadow-primary/10"
           >
             {/* Image */}
 
@@ -86,7 +58,7 @@ export default function Projects() {
               />
 
               {project.featured && (
-                <div className="absolute left-4 top-4 flex items-center gap-2 rounded-full bg-primary px-3 py-1 text-xs font-semibold text-white">
+                <div className="absolute left-4 top-4 flex items-center gap-2 rounded-full bg-primary px-3 py-1 text-xs font-semibold text-foreground">
                   <Star className="h-3.5 w-3.5 fill-current" />
                   Featured
                 </div>
@@ -124,7 +96,7 @@ export default function Projects() {
                   href={project.github_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-xl border border-border px-4 py-2 text-sm font-medium transition-all hover:border-primary hover:bg-primary hover:text-white"
+                  className="inline-flex items-center gap-2 rounded-xl border border-border px-4 py-2 text-sm font-medium transition-all hover:border-primary hover:bg-primary hover:text-foreground"
                 >
                   <FaGithub className="h-4 w-4" />
                   GitHub
@@ -135,7 +107,7 @@ export default function Projects() {
                     href={project.live_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 rounded-xl bg-primary px-4 py-2 text-sm font-medium text-white transition-all hover:scale-105"
+                    className="inline-flex items-center gap-2 rounded-xl bg-primary px-4 py-2 text-sm font-medium text-foreground transition-all hover:scale-105"
                   >
                     <ExternalLink className="h-4 w-4" />
                     Live Demo

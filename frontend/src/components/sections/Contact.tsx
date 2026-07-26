@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Mail, MapPin, Briefcase, Send } from "lucide-react";
+import { Mail, MapPin, Briefcase, Send, Loader2 } from "lucide-react";
 import toast from "react-hot-toast";
 import { sendContactMessage } from "@/lib/api";
 
@@ -26,37 +26,36 @@ export default function Contact() {
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
-    setFormData((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const validate = () => {
-    if (!formData.name.trim()) {
+  const validate = (): boolean => {
+    const { name, email, subject, message } = formData;
+
+    if (!name.trim()) {
       toast.error("Please enter your name");
       return false;
     }
 
-    if (!formData.email.trim()) {
-      toast.error("Please enter your email");
+    if (!email.trim()) {
+      toast.error("Please enter your email address");
       return false;
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    if (!emailRegex.test(formData.email)) {
-      toast.error("Enter a valid email");
+    if (!emailRegex.test(email.trim())) {
+      toast.error("Please enter a valid email address");
       return false;
     }
 
-    if (!formData.subject.trim()) {
-      toast.error("Please enter subject");
+    if (!subject.trim()) {
+      toast.error("Please enter a subject");
       return false;
     }
 
-    if (!formData.message.trim()) {
-      toast.error("Please enter message");
+    if (!message.trim()) {
+      toast.error("Please enter your message");
       return false;
     }
 
@@ -70,14 +69,17 @@ export default function Contact() {
 
     try {
       setLoading(true);
-
-      await sendContactMessage(formData);
+      await sendContactMessage({
+        name: formData.name.trim(),
+        email: formData.email.trim(),
+        subject: formData.subject.trim(),
+        message: formData.message.trim(),
+      });
 
       toast.success("Message sent successfully!");
-
       setFormData(initialState);
     } catch (err) {
-      toast.error("Failed to send message.");
+      toast.error("Failed to send message. Please try again later.");
     } finally {
       setLoading(false);
     }
@@ -88,130 +90,137 @@ export default function Contact() {
       id="contact"
       className="mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 lg:px-10 lg:py-24"
     >
-      {/* Heading */}
-
+      {/* Section Header */}
       <div className="mb-14 text-center">
-        <h2 className="text-3xl font-bold sm:text-4xl lg:text-5xl">
+        <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
           Let's Work Together
         </h2>
-
         <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-muted-foreground sm:text-base">
-          Ready to build something amazing? Feel free to send me a message.
+          Ready to build something amazing? Feel free to send me a message and
+          I'll get back to you shortly.
         </p>
       </div>
 
       <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:gap-10">
-        {/* FORM */}
-
+        {/* Contact Form */}
         <form
           onSubmit={handleSubmit}
-          className="space-y-5 rounded-3xl border border-white/10 bg-card p-5 shadow-xl sm:p-8"
+          className="space-y-5 rounded-3xl border border-border bg-card/80 p-5 shadow-2xl backdrop-blur-xl sm:p-8"
+          noValidate
         >
-          {/* Name */}
-
+          {/* Name Field */}
           <div className="relative">
             <input
               type="text"
+              id="name"
               name="name"
               placeholder=" "
               value={formData.name}
               onChange={handleChange}
-              className="peer h-14 w-full rounded-xl border border-white/10 bg-background/40 px-4 pt-5 text-sm outline-none transition-all duration-300 focus:border-primary focus:ring-4 focus:ring-primary/10 sm:h-16 sm:rounded-2xl sm:px-5"
+              disabled={loading}
+              className="peer h-14 w-full rounded-xl border border-border bg-background/60 px-4 pt-5 text-sm text-foreground outline-none transition-all duration-300 focus:border-primary focus:ring-4 focus:ring-primary/10 sm:h-16 sm:rounded-2xl sm:px-5 disabled:opacity-50"
             />
-
-            <label className="pointer-events-none absolute left-4 top-5 text-sm text-muted-foreground transition-all peer-placeholder-shown:top-5 peer-focus:top-2 peer-focus:text-xs peer-focus:text-primary peer-not-placeholder-shown:top-2 peer-not-placeholder-shown:text-xs">
+            <label
+              htmlFor="name"
+              className="pointer-events-none absolute left-4 top-5 text-sm text-muted-foreground transition-all duration-200 peer-focus:top-2 peer-focus:text-xs peer-focus:text-primary peer-not-placeholder-shown:top-2 peer-not-placeholder-shown:text-xs sm:left-5"
+            >
               Name
             </label>
           </div>
 
-          {/* Email */}
-
+          {/* Email Field */}
           <div className="relative">
             <input
               type="email"
+              id="email"
               name="email"
               placeholder=" "
               value={formData.email}
               onChange={handleChange}
-              className="peer h-14 w-full rounded-xl border border-white/10 bg-background/40 px-4 pt-5 text-sm outline-none transition-all duration-300 focus:border-primary focus:ring-4 focus:ring-primary/10 sm:h-16 sm:rounded-2xl sm:px-5"
+              disabled={loading}
+              className="peer h-14 w-full rounded-xl border border-border bg-background/60 px-4 pt-5 text-sm text-foreground outline-none transition-all duration-300 focus:border-primary focus:ring-4 focus:ring-primary/10 sm:h-16 sm:rounded-2xl sm:px-5 disabled:opacity-50"
             />
-
-            <label className="pointer-events-none absolute left-4 top-5 text-sm text-muted-foreground transition-all peer-placeholder-shown:top-5 peer-focus:top-2 peer-focus:text-xs peer-focus:text-primary peer-not-placeholder-shown:top-2 peer-not-placeholder-shown:text-xs">
+            <label
+              htmlFor="email"
+              className="pointer-events-none absolute left-4 top-5 text-sm text-muted-foreground transition-all duration-200 peer-focus:top-2 peer-focus:text-xs peer-focus:text-primary peer-not-placeholder-shown:top-2 peer-not-placeholder-shown:text-xs sm:left-5"
+            >
               Email
             </label>
           </div>
 
-          {/* Subject */}
-
+          {/* Subject Field */}
           <div className="relative">
             <input
               type="text"
+              id="subject"
               name="subject"
               placeholder=" "
               value={formData.subject}
               onChange={handleChange}
-              className="peer h-14 w-full rounded-xl border border-white/10 bg-background/40 px-4 pt-5 text-sm outline-none transition-all duration-300 focus:border-primary focus:ring-4 focus:ring-primary/10 sm:h-16 sm:rounded-2xl sm:px-5"
+              disabled={loading}
+              className="peer h-14 w-full rounded-xl border border-border bg-background/60 px-4 pt-5 text-sm text-foreground outline-none transition-all duration-300 focus:border-primary focus:ring-4 focus:ring-primary/10 sm:h-16 sm:rounded-2xl sm:px-5 disabled:opacity-50"
             />
-
-            <label className="pointer-events-none absolute left-4 top-5 text-sm text-muted-foreground transition-all peer-placeholder-shown:top-5 peer-focus:top-2 peer-focus:text-xs peer-focus:text-primary peer-not-placeholder-shown:top-2 peer-not-placeholder-shown:text-xs">
+            <label
+              htmlFor="subject"
+              className="pointer-events-none absolute left-4 top-5 text-sm text-muted-foreground transition-all duration-200 peer-focus:top-2 peer-focus:text-xs peer-focus:text-primary peer-not-placeholder-shown:top-2 peer-not-placeholder-shown:text-xs sm:left-5"
+            >
               Subject
             </label>
           </div>
 
-          {/* Message */}
-
+          {/* Message Field */}
           <div className="relative">
             <textarea
-              rows={6}
+              id="message"
               name="message"
+              rows={6}
               placeholder=" "
               value={formData.message}
               onChange={handleChange}
-              className="peer w-full resize-none rounded-xl border border-white/10 bg-background/40 px-4 pt-5 pb-3 text-sm outline-none transition-all duration-300 focus:border-primary focus:ring-4 focus:ring-primary/10 sm:rounded-2xl sm:px-5"
+              disabled={loading}
+              className="peer w-full resize-none rounded-xl border border-border bg-background/60 px-4 pb-3 pt-5 text-sm text-foreground outline-none transition-all duration-300 focus:border-primary focus:ring-4 focus:ring-primary/10 sm:rounded-2xl sm:px-5 disabled:opacity-50"
             />
-
-            <label className="pointer-events-none absolute left-4 top-5 text-sm text-muted-foreground transition-all peer-placeholder-shown:top-5 peer-focus:top-2 peer-focus:text-xs peer-focus:text-primary peer-not-placeholder-shown:top-2 peer-not-placeholder-shown:text-xs">
+            <label
+              htmlFor="message"
+              className="pointer-events-none absolute left-4 top-5 text-sm text-muted-foreground transition-all duration-200 peer-focus:top-2 peer-focus:text-xs peer-focus:text-primary peer-not-placeholder-shown:top-2 peer-not-placeholder-shown:text-xs sm:left-5"
+            >
               Message
             </label>
           </div>
-          {/* Submit Button */}
 
+          {/* Submit Button */}
           <button
             type="submit"
             disabled={loading}
-            className="flex h-14 w-full items-center justify-center gap-3 rounded-2xl bg-primary text-sm font-semibold text-primary-foreground shadow-lg transition-all duration-300 hover:scale-[1.01] hover:shadow-primary/30 disabled:cursor-not-allowed disabled:opacity-60"
+            className="flex h-14 w-full items-center justify-center gap-3 rounded-2xl bg-primary text-sm font-semibold text-primary-foreground shadow-lg transition-all duration-300 hover:scale-[1.01] hover:shadow-primary/30 disabled:cursor-not-allowed disabled:opacity-60 active:scale-[0.99]"
           >
             {loading ? (
               <>
-                <div className="h-5 w-5 animate-spin rounded-full border-2 border-white/40 border-t-white" />
-                Sending...
+                <Loader2 className="h-5 w-5 animate-spin" />
+                <span>Sending...</span>
               </>
             ) : (
               <>
                 <Send className="h-5 w-5" />
-                Send Message
+                <span>Send Message</span>
               </>
             )}
           </button>
         </form>
 
-        {/* Contact Info */}
-
+        {/* Contact Info Sidebar */}
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-1">
-          {/* Email */}
-
-          <div className="rounded-3xl border border-white/10 bg-card p-5 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:border-primary/30">
+          {/* Email Info Card */}
+          <div className="rounded-3xl border border-border bg-card p-5 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:border-primary/30">
             <div className="flex items-start gap-4">
               <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-primary/10">
                 <Mail className="h-5 w-5 text-primary" />
               </div>
-
               <div className="min-w-0">
                 <p className="mb-1 text-sm text-muted-foreground">Email</p>
-
                 <a
                   href="mailto:rajuyadav242625@gmail.com"
-                  className="break-all text-sm text-white transition-colors hover:text-primary sm:text-base"
+                  className="break-all text-sm font-medium text-foreground transition-colors hover:text-primary sm:text-base"
                 >
                   rajuyadav242625@gmail.com
                 </a>
@@ -219,53 +228,46 @@ export default function Contact() {
             </div>
           </div>
 
-          {/* Location */}
-
-          <div className="rounded-3xl border border-white/10 bg-card p-5 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:border-primary/30">
+          {/* Location Info Card */}
+          <div className="rounded-3xl border border-border bg-card p-5 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:border-primary/30">
             <div className="flex items-start gap-4">
               <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-primary/10">
                 <MapPin className="h-5 w-5 text-primary" />
               </div>
-
               <div>
                 <p className="mb-1 text-sm text-muted-foreground">Location</p>
-
-                <p className="text-sm text-white sm:text-base">
+                <p className="text-sm font-medium text-foreground sm:text-base">
                   Hyderabad, Telangana, India
                 </p>
               </div>
             </div>
           </div>
 
-          {/* Availability */}
-
-          <div className="rounded-3xl border border-white/10 bg-card p-5 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 sm:col-span-2 lg:col-span-1">
+          {/* Availability Info Card */}
+          <div className="rounded-3xl border border-border bg-card p-5 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 sm:col-span-2 lg:col-span-1">
             <div className="flex items-start gap-4">
               <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-primary/10">
                 <Briefcase className="h-5 w-5 text-primary" />
               </div>
-
               <div>
                 <p className="mb-1 text-sm text-muted-foreground">
                   Availability
                 </p>
-
-                <p className="font-medium text-green-400">Available for Work</p>
+                <p className="font-medium text-emerald-400">
+                  Available for Work
+                </p>
               </div>
             </div>
           </div>
 
-          {/* About Card */}
-
+          {/* Callout Card */}
           <div className="rounded-3xl border border-primary/20 bg-linear-to-br from-primary/10 to-transparent p-6 sm:col-span-2 lg:col-span-1">
-            <h3 className="mb-3 text-xl font-semibold">
-              Let's build something together.
+            <h3 className="text-xl font-bold text-foreground">
+              Let's Build Something Amazing
             </h3>
-
-            <p className="leading-7 text-muted-foreground">
-              Whether you have a project idea, freelance opportunity,
-              internship, collaboration or just want to connect, I'm always
-              happy to have a conversation.
+            <p className="mt-2 text-sm leading-6 text-muted-foreground">
+              Have a project in mind, a freelance opportunity, or just want to
+              say hello? I'd love to hear from you.
             </p>
           </div>
         </div>

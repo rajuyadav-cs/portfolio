@@ -36,7 +36,7 @@ export default function Footer() {
   if (!hero) return null;
 
   return (
-    <footer className="mt-20 border-t border-white/10">
+    <footer className="mt-20 border-t border-border">
       <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-10 px-5 py-10 sm:px-8 lg:flex-row lg:px-12">
         {/* Left */}
         <div className="text-center lg:text-left">
@@ -52,7 +52,7 @@ export default function Footer() {
           <Link
             href={hero.github_url}
             target="_blank"
-            className="rounded-2xl border border-white/10 bg-card p-3 transition-all duration-300 hover:-translate-y-1 hover:border-primary hover:text-primary"
+            className="rounded-2xl border border-border bg-card p-3 transition-all duration-300 hover:-translate-y-1 hover:border-primary hover:text-primary"
           >
             <FaGithub size={20} />
           </Link>
@@ -60,14 +60,14 @@ export default function Footer() {
           <Link
             href={hero.linkedin_url}
             target="_blank"
-            className="rounded-2xl border border-white/10 bg-card p-3 transition-all duration-300 hover:-translate-y-1 hover:border-primary hover:text-primary"
+            className="rounded-2xl border border-border bg-card p-3 transition-all duration-300 hover:-translate-y-1 hover:border-primary hover:text-primary"
           >
             <FaLinkedin size={20} />
           </Link>
 
           <Link
             href={`mailto:${hero.email}`}
-            className="rounded-2xl border border-white/10 bg-card p-3 transition-all duration-300 hover:-translate-y-1 hover:border-primary hover:text-primary"
+            className="rounded-2xl border border-border bg-card p-3 transition-all duration-300 hover:-translate-y-1 hover:border-primary hover:text-primary"
           >
             <Mail size={20} />
           </Link>
@@ -88,7 +88,7 @@ export default function Footer() {
       </div>
 
       {/* Bottom */}
-      <div className="flex flex-col items-center justify-between gap-4 border-t border-white/10 px-5 py-6 text-sm text-muted-foreground sm:flex-row sm:px-8 lg:px-12">
+      <div className="flex flex-col items-center justify-between gap-4 border-t border-border px-5 py-6 text-sm text-muted-foreground sm:flex-row sm:px-8 lg:px-12">
         <p>
           © {new Date().getFullYear()} {hero.name}. All rights reserved.
         </p>
@@ -96,7 +96,7 @@ export default function Footer() {
         <Link
           href="https://portfolio-qq6y.onrender.com/admin/"
           target="_blank"
-          className="flex items-center gap-2 rounded-xl border border-white/10 bg-card px-3 py-2 transition-all duration-300 hover:border-primary hover:text-primary"
+          className="flex items-center gap-2 rounded-xl border border-border bg-card px-3 py-2 transition-all duration-300 hover:border-primary hover:text-primary"
         >
           <Shield size={16} />
           <span>Admin Panel</span>

@@ -1,54 +1,28 @@
 "use client";
 
+import { HeroInterface, SkillsInterface } from "@/types";
+
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 import { FaGithub, FaLinkedin } from "react-icons/fa6";
 import { MdOutlineMailOutline } from "react-icons/md";
 
-import { getHero, getSkills } from "@/lib/api";
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 import MagicButton from "@/components/ui/MagicButton";
 
-interface HeroData {
-  id: number;
-  greeting: string;
-  name: string;
-  designation: string;
-  short_description: string;
-  profile_image: string;
-  resume: string;
-  github_url: string;
-  linkedin_url: string;
-  email: string;
+interface HeroProps {
+  HeroData: HeroInterface;
+  SkillsData: SkillsInterface;
 }
 
-export default function Hero() {
-  const [hero, setHero] = useState<HeroData | null>(null);
-  const [coreSkills, setCoreSkills] = useState<string[]>([]);
+export default function Hero({ HeroData, SkillsData }: HeroProps) {
+  // Only Core Area skills
+  const coreSkills = SkillsData.filter(
+    (skill) => skill.category === "Core Area",
+  ).map((skill) => skill.name);
+
   const [currentSkill, setCurrentSkill] = useState(0);
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const [heroData, skillsData] = await Promise.all([
-          getHero(),
-          getSkills(),
-        ]);
-
-        setHero(heroData);
-
-        const coreAreaSkills = skillsData
-          .filter((skill: any) => skill.category === "Core Area")
-          .map((skill: any) => skill.name);
-
-        setCoreSkills(coreAreaSkills);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    fetchData();
-  }, []);
 
   useEffect(() => {
     if (coreSkills.length === 0) return;
@@ -58,14 +32,12 @@ export default function Hero() {
     }, 2500);
 
     return () => clearInterval(interval);
-  }, [coreSkills]);
-
-  if (!hero) return null;
+  }, [coreSkills.length]);
 
   return (
     <section
       id="home"
-      className="hero bg-card px-5 py-8 text-white sm:px-8 lg:px-12 lg:py-14"
+      className="bg-card px-5 py-8 text-foreground sm:px-8 lg:px-12 lg:py-14"
     >
       <motion.div
         initial={{ opacity: 0 }}
@@ -76,13 +48,13 @@ export default function Hero() {
         {/* LEFT */}
         <div className="order-1 flex flex-col items-center text-center lg:items-start lg:text-left">
           <TextGenerateEffect
-            words={hero.greeting}
+            words={HeroData.greeting}
             duration={0.8}
             className="text-xl font-light text-muted-foreground sm:text-2xl"
           />
 
           <TextGenerateEffect
-            words={hero.name}
+            words={HeroData.name}
             duration={1}
             className="mt-2 text-5xl font-bold tracking-tight sm:text-6xl lg:text-7xl"
           />
@@ -98,7 +70,7 @@ export default function Hero() {
               <TextGenerateEffect
                 words={coreSkills[currentSkill] || ""}
                 duration={0.6}
-                className="text-2xl  font-semibold text-primary"
+                className="text-2xl font-semibold text-primary"
               />
             </motion.div>
           </AnimatePresence>
@@ -106,7 +78,7 @@ export default function Hero() {
           {/* Desktop Description */}
           <div className="mt-8 hidden max-w-xl lg:block">
             <TextGenerateEffect
-              words={hero.short_description}
+              words={HeroData.short_description}
               duration={2}
               className="text-lg leading-8 text-muted-foreground"
             />
@@ -129,7 +101,7 @@ export default function Hero() {
 
             <div className="mt-5 flex gap-6 text-2xl">
               <a
-                href={hero.github_url}
+                href={HeroData.github_url}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="transition hover:-translate-y-1 hover:text-primary"
@@ -138,7 +110,7 @@ export default function Hero() {
               </a>
 
               <a
-                href={hero.linkedin_url}
+                href={HeroData.linkedin_url}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="transition hover:-translate-y-1 hover:text-primary"
@@ -147,7 +119,7 @@ export default function Hero() {
               </a>
 
               <a
-                href={`mailto:${hero.email}`}
+                href={`mailto:${HeroData.email}`}
                 className="transition hover:-translate-y-1 hover:text-primary"
               >
                 <MdOutlineMailOutline />
@@ -166,9 +138,9 @@ export default function Hero() {
             <div className="absolute -inset-4 rounded-3xl bg-linear-to-r from-blue-500/20 via-violet-500/20 to-cyan-500/20 blur-3xl" />
 
             <img
-              src={hero.profile_image}
-              alt={hero.name}
-              className="relative h-64 w-52 rounded-3xl object-cover ring-1 ring-white/10 shadow-[0_0_60px_rgba(59,130,246,0.18)] sm:h-80 sm:w-64 lg:h-96 lg:w-80"
+              src={HeroData.profile_image}
+              alt={HeroData.name}
+              className="relative h-64 w-52 rounded-3xl object-cover ring-1 ring-border shadow-[0_0_60px_rgba(59,130,246,0.18)] sm:h-80 sm:w-64 lg:h-96 lg:w-80"
             />
           </motion.div>
         </div>
@@ -176,7 +148,7 @@ export default function Hero() {
         {/* MOBILE BOTTOM */}
         <div className="order-3 flex flex-col items-center text-center lg:hidden">
           <TextGenerateEffect
-            words={hero.short_description}
+            words={HeroData.short_description}
             duration={2}
             className="max-w-xl text-base leading-8 text-muted-foreground"
           />
@@ -194,15 +166,28 @@ export default function Hero() {
           </span>
 
           <div className="mt-5 flex gap-6 text-2xl">
-            <a href={hero.github_url}>
+            <a
+              href={HeroData.github_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transition hover:-translate-y-1 hover:text-primary"
+            >
               <FaGithub />
             </a>
 
-            <a href={hero.linkedin_url}>
+            <a
+              href={HeroData.linkedin_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transition hover:-translate-y-1 hover:text-primary"
+            >
               <FaLinkedin />
             </a>
 
-            <a href={`mailto:${hero.email}`}>
+            <a
+              href={`mailto:${HeroData.email}`}
+              className="transition hover:-translate-y-1 hover:text-primary"
+            >
               <MdOutlineMailOutline />
             </a>
           </div>

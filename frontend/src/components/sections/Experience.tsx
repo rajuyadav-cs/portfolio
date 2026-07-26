@@ -1,44 +1,18 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { BriefcaseBusiness, CalendarDays, MapPin } from "lucide-react";
 
-import { getExperience } from "@/lib/api";
+import { ExperienceInterface } from "@/types";
 
-interface Experience {
-  id: number;
-  role: string;
-  organization: string;
-  employment_type: string;
-  location: string;
-  start_date: string;
-  end_date: string;
-  currently_working: boolean;
-  description: string;
-  display_order: number;
+interface ExperienceProps {
+  data: ExperienceInterface[];
 }
 
-export default function Experience() {
-  const [experiences, setExperiences] = useState<Experience[]>([]);
-
-  useEffect(() => {
-    async function fetchExperience() {
-      try {
-        const data = await getExperience();
-
-        setExperiences(
-          data.sort(
-            (a: Experience, b: Experience) => a.display_order - b.display_order,
-          ),
-        );
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    fetchExperience();
-  }, []);
+export default function Experience({ data }: ExperienceProps) {
+  const experiences = [...data].sort(
+    (a, b) => a.display_order - b.display_order,
+  );
 
   return (
     <section
@@ -75,17 +49,11 @@ export default function Experience() {
             transition={{ delay: index * 0.1 }}
             className="relative"
           >
-            {/* Timeline Dot */}
-
             <div className="absolute -left-12 top-6 flex h-6 w-6 items-center justify-center rounded-full border-4 border-background bg-primary shadow-lg shadow-primary/40">
-              <BriefcaseBusiness className="h-3.5 w-3.5 text-white" />
+              <BriefcaseBusiness className="h-3.5 w-3.5 text-foreground" />
             </div>
 
-            {/* Card */}
-
-            <div className="rounded-3xl border border-white/10 bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/20 hover:shadow-xl hover:shadow-primary/10">
-              {/* Header */}
-
+            <div className="rounded-3xl border border-border bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/20 hover:shadow-xl hover:shadow-primary/10">
               <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
                 <div>
                   <h3 className="text-2xl font-bold">{experience.role}</h3>
@@ -99,8 +67,6 @@ export default function Experience() {
                   {experience.employment_type}
                 </span>
               </div>
-
-              {/* Info */}
 
               <div className="mt-6 flex flex-col gap-3 text-sm text-muted-foreground sm:flex-row sm:flex-wrap sm:gap-6">
                 <div className="flex items-center gap-2">
@@ -120,7 +86,8 @@ export default function Experience() {
 
                   {experience.currently_working
                     ? "Present"
-                    : new Date(experience.end_date).toLocaleDateString(
+                    : experience.end_date &&
+                      new Date(experience.end_date).toLocaleDateString(
                         "en-US",
                         {
                           month: "short",
@@ -129,8 +96,6 @@ export default function Experience() {
                       )}
                 </div>
               </div>
-
-              {/* Description */}
 
               <p className="mt-6 leading-8 text-muted-foreground">
                 {experience.description}

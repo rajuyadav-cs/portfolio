@@ -1,43 +1,16 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { GraduationCap, CalendarDays, MapPin } from "lucide-react";
 
-import { getEducation } from "@/lib/api";
+import { EducationInterface } from "@/types";
 
-interface Education {
-  id: number;
-  institution: string;
-  degree: string;
-  specialization: string;
-  grade: string;
-  start_year: number;
-  end_year: number;
-  location: string;
-  display_order: number;
+interface EducationProps {
+  data: EducationInterface[];
 }
 
-export default function Education() {
-  const [education, setEducation] = useState<Education[]>([]);
-
-  useEffect(() => {
-    async function fetchEducation() {
-      try {
-        const data = await getEducation();
-
-        setEducation(
-          data.sort(
-            (a: Education, b: Education) => a.display_order - b.display_order,
-          ),
-        );
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    fetchEducation();
-  }, []);
+export default function Education({ data }: EducationProps) {
+  const education = [...data].sort((a, b) => a.display_order - b.display_order);
 
   return (
     <section
@@ -72,7 +45,7 @@ export default function Education() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: index * 0.1 }}
-            className="group rounded-3xl border border-white/10 bg-card p-8 transition-all duration-300 hover:-translate-y-1 hover:border-primary/20 hover:shadow-2xl hover:shadow-primary/10"
+            className="group rounded-3xl border border-border bg-card p-8 transition-all duration-300 hover:-translate-y-1 hover:border-primary/20 hover:shadow-2xl hover:shadow-primary/10"
           >
             <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
               <div className="flex gap-5">

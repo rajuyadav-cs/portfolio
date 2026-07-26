@@ -1,42 +1,18 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Award, ExternalLink, CalendarDays } from "lucide-react";
 
-import { getCertifications } from "@/lib/api";
+import { CertificationInterface } from "@/types";
 
-interface Certification {
-  id: number;
-  title: string;
-  issuer: string;
-  issue_date: string;
-  credential_url: string;
-  certificate_image: string;
-  display_order: number;
+interface CertificationProps {
+  data: CertificationInterface[];
 }
 
-export default function Certifications() {
-  const [certifications, setCertifications] = useState<Certification[]>([]);
-
-  useEffect(() => {
-    async function fetchCertifications() {
-      try {
-        const data = await getCertifications();
-
-        setCertifications(
-          data.sort(
-            (a: Certification, b: Certification) =>
-              a.display_order - b.display_order,
-          ),
-        );
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    fetchCertifications();
-  }, []);
+export default function Certifications({ data }: CertificationProps) {
+  const certifications = [...data].sort(
+    (a, b) => a.display_order - b.display_order,
+  );
 
   return (
     <section
@@ -71,7 +47,7 @@ export default function Certifications() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: index * 0.1 }}
-            className="group overflow-hidden rounded-3xl border border-white/10 bg-card transition-all duration-300 hover:-translate-y-2 hover:border-primary/20 hover:shadow-2xl hover:shadow-primary/10"
+            className="group overflow-hidden rounded-3xl border border-border bg-card transition-all duration-300 hover:-translate-y-2 hover:border-primary/20 hover:shadow-2xl hover:shadow-primary/10"
           >
             {/* Certificate Image */}
 
@@ -82,7 +58,7 @@ export default function Certifications() {
                 className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
               />
 
-              <div className="absolute left-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white shadow-lg">
+              <div className="absolute left-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-primary text-foreground shadow-lg">
                 <Award className="h-5 w-5" />
               </div>
             </div>
@@ -109,7 +85,7 @@ export default function Certifications() {
                 href={certificate.credential_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-xl border border-primary/20 bg-primary/10 px-4 py-2 text-sm font-medium text-primary transition-all duration-300 hover:bg-primary hover:text-white"
+                className="inline-flex items-center gap-2 rounded-xl border border-primary/20 bg-primary/10 px-4 py-2 text-sm font-medium text-primary transition-all duration-300 hover:bg-primary hover:text-foreground"
               >
                 Verify Credential
                 <ExternalLink className="h-4 w-4" />

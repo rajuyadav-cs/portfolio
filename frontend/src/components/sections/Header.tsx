@@ -5,6 +5,7 @@ import { Download, MoonStar } from "lucide-react";
 import { useEffect, useState } from "react";
 import { wrap } from "module";
 import { getHero } from "@/lib/api";
+import ThemeToggle from "../ui/theme-toogle";
 
 interface HeroData {
   resume: string;
@@ -63,7 +64,10 @@ export default function Header() {
 
         {/* Actions */}
         <div className="flex items-center gap-2">
-          <Button className="rounded-xl bg-linear-to-r from-blue-600 to-violet-600 px-4 text-white shadow-lg shadow-blue-500/20 tracking-widest transition-all duration-300 hover:scale-105 hover:from-blue-500 hover:to-violet-500 hover:shadow-blue-500/40">
+          <div className="flex items-center gap-3">
+            <ThemeToggle />
+          </div>
+          <Button className="rounded-xl bg-linear-to-r from-blue-600 to-violet-600 px-4 text-foreground shadow-lg shadow-blue-500/20 tracking-widest transition-all duration-300 hover:scale-105 hover:from-blue-500 hover:to-violet-500 hover:shadow-blue-500/40">
             <a href={hero?.resume} target="_blank" rel="noopener noreferrer">
               Resume
             </a>
