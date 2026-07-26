@@ -9,7 +9,7 @@ type ReactNodeType = {
 export default function ReactLayout({ children }: ReactNodeType) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="m-0 min-h-screen w-full overflow-hidden bg-background p-0 text-foreground">
+      <body className="m-0 min-h-dvh w-full overflow-x-hidden bg-background p-0 text-foreground">
         <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
