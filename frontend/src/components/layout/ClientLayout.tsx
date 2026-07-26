@@ -55,7 +55,7 @@ export default function ClientLayout({
       </div>
 
       {/* Layout after header */}
-      <div className="flex h-screen gap-4 px-2 pb-2 pt-20 sm:px-4 md:px-6 lg:px-8">
+      <div className="flex h-[calc(100vh-80px)] gap-4 px-2 pb-2 sm:px-4 md:px-6 lg:px-8">
         {/* Sidebar */}
         <div className="h-full shrink-0">
           <SidebarWrapper />
