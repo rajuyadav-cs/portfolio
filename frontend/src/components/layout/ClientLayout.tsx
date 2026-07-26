@@ -50,7 +50,7 @@ export default function ClientLayout({
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
-    <div className="relative flex flex-col h-screen w-full overflow-hidden bg-background">
+    <div className="flex flex-col h-screen w-full overflow-hidden bg-background">
       {/* Fixed Header */}
       <header className="shrink-0 z-30 w-full">
         <Header />

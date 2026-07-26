@@ -23,7 +23,7 @@ export default async function Page() {
     ]);
 
   return (
-    <div className="overflow-hidden w-full h-screen">
+    <div className="relative overflow-hidden w-full h-full">
       <ClientLayout
         hero={hero}
         about={about}
