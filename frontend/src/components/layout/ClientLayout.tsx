@@ -45,25 +45,32 @@ export default function ClientLayout({
   education,
 }: ClientLayoutProps) {
   return (
-    <div className="relative flex h-screen flex-col overflow-hidden bg-background">
+    <div className="relative h-screen overflow-hidden bg-background">
       {/* Background */}
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-[url('/bgimg.jpg')] bg-cover bg-center bg-no-repeat opacity-30" />
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[url('/bgimg.jpg')] bg-cover bg-center opacity-30" />
 
       {/* Fixed Header */}
-      <header className="z-50 shrink-0">
+      <div className="fixed left-0 top-0 z-50 w-full">
         <Header />
-      </header>
+      </div>
 
-      {/* Main Area */}
-      <main className="flex min-h-0 flex-1 gap-4 overflow-hidden p-2 sm:p-4 md:p-6 lg:p-8">
-        {/* Fixed Sidebar */}
-        <SidebarWrapper />
+      {/* Layout after header */}
+      <div className="flex h-screen gap-4 px-2 pb-2 pt-20 sm:px-4 md:px-6 lg:px-8">
+        {/* Sidebar */}
+        <div className="h-full shrink-0">
+          <SidebarWrapper />
+        </div>
 
-        {/* Only this scrolls */}
+        {/* Scroll Area */}
         <section
-          className={cn(
-            "relative flex flex-1 flex-col overflow-y-auto rounded-2xl border bg-card py-2 shadow-sm transition-all duration-300",
-          )}
+          className="
+          flex-1
+          overflow-y-auto
+          rounded-2xl
+          border
+          bg-card
+          shadow-sm
+          "
         >
           <Hero HeroData={hero} SkillsData={skills} />
 
@@ -83,7 +90,7 @@ export default function ClientLayout({
 
           <Footer />
         </section>
-      </main>
+      </div>
     </div>
   );
 }
