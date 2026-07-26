@@ -23,14 +23,16 @@ export default async function Page() {
     ]);
 
   return (
-    <ClientLayout
-      hero={hero}
-      about={about}
-      skills={skills}
-      projects={projects}
-      experience={experience}
-      certifications={certifications}
-      education={education}
-    />
+    <div className="overflow-hidden w-full h-screen">
+      <ClientLayout
+        hero={hero}
+        about={about}
+        skills={skills}
+        projects={projects}
+        experience={experience}
+        certifications={certifications}
+        education={education}
+      />
+    </div>
   );
 }

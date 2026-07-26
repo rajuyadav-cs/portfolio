@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import { cn } from "@/lib/utils";
 
 import {
@@ -44,63 +47,42 @@ export default function ClientLayout({
   certifications,
   education,
 }: ClientLayoutProps) {
-  return (
-    <div className="relative h-screen overflow-hidden bg-background">
-      {/* Background */}
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-[url('/bgimg.jpg')] bg-cover bg-center bg-no-repeat opacity-30" />
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
+  return (
+    <div className="relative flex flex-col h-screen w-full overflow-hidden bg-background">
       {/* Fixed Header */}
-      <div className="fixed left-0 top-0 z-50 w-full">
+      <header className="shrink-0 z-30 w-full">
         <Header />
-      </div>
+      </header>
 
       {/* Main Dashboard Area */}
-      <main
-        className="
-        flex
-        h-screen
-        gap-4
-        overflow-hidden
-        p-2
-        pt-20
-        sm:p-4
-        sm:pt-20
-        md:gap-6
-        md:p-6
-        md:pt-24
-        lg:gap-8
-        lg:p-8
-        lg:pt-24
-        "
-      >
-        {/* Sidebar */}
-        <aside className="h-full shrink-0">
-          <SidebarWrapper />
-        </aside>
+      <main className="flex flex-1 min-h-0 w-full max-w-full gap-4 overflow-hidden p-2 my-2 sm:p-4 md:gap-6 md:p-6 lg:gap-8 lg:p-8">
+        {/* Fixed Sidebar */}
+        <div className="h-full shrink-0 z-20">
+          <SidebarWrapper isOpen={isSidebarOpen} onToggle={setIsSidebarOpen} />
+        </div>
 
-        {/* Scrollable Content */}
+        {/* Scrollable Content Container */}
         <section
           className={cn(
-            "flex min-h-0 flex-1 flex-col overflow-y-auto rounded-2xl border bg-card shadow-sm transition-all duration-300",
+            "relative flex-1 min-w-0 h-full flex flex-col items-center rounded-2xl border bg-card shadow-sm overflow-y-auto overflow-x-hidden transition-all duration-300 z-10",
+            isSidebarOpen &&
+              "blur-sm pointer-events-none select-none opacity-80",
           )}
         >
-          <Hero HeroData={hero} SkillsData={skills} />
-
-          <Projects data={projects} />
-
-          <Skills data={skills} />
-
-          <Experience data={experience} />
-
-          <Certifications data={certifications} />
-
-          <About data={about} />
-
-          <Education data={education} />
-
-          <Contact />
-
-          <Footer />
+          {/* Inner Content Wrapper: Forces all child components to respect section width */}
+          <div className="w-full max-w-full flex flex-col items-center px-4 py-6 sm:px-6 md:px-8 space-y-12">
+            <Hero HeroData={hero} SkillsData={skills} />
+            <Projects data={projects} />
+            <Skills data={skills} />
+            <Experience data={experience} />
+            <Certifications data={certifications} />
+            <About data={about} />
+            <Education data={education} />
+            <Contact />
+            <Footer />
+          </div>
         </section>
       </main>
     </div>
