@@ -1,10 +1,8 @@
-"use client";
-
-import { useState } from "react";
 import { cn } from "@/lib/utils";
+import Header from "./Header";
+import Section from "../ui/Section";
 
 import {
-  Header,
   Hero,
   About,
   Education,
@@ -47,40 +45,72 @@ export default function ClientLayout({
   certifications,
   education,
 }: ClientLayoutProps) {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
   return (
-    <div className="flex flex-col h-screen w-full overflow-hidden bg-background">
-      {/* Fixed Header */}
-      <header className="shrink-0 z-30 w-full">
-        <Header />
-      </header>
+    <div className="relative isolate flex h-screen min-h-screen flex-col overflow-hidden bg-background animate-[fadeIn_0.5s_ease-out]">
+      {/* Background */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 -z-10 overflow-hidden"
+      >
+        <div className="absolute inset-0 bg-[url('/bgimg.jpg')] bg-cover bg-center bg-no-repeat opacity-20 dark:opacity-30" />
+        <div className="ambient-orb left-[-5%] top-[-4%] h-64 w-64 bg-primary/20" />
+        <div className="ambient-orb bottom-[-8%] right-[-4%] h-72 w-72 bg-accent/20" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(59,130,246,0.12),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(168,85,247,0.14),transparent_35%)]" />
+      </div>
 
-      {/* Main Dashboard Area */}
-      <main className="flex flex-1 min-h-0 w-full max-w-full gap-4 overflow-hidden p-2 my-2 sm:p-4 md:gap-6 md:p-6 lg:gap-8 lg:p-8">
-        {/* Fixed Sidebar */}
-        <div className="h-full shrink-0 z-20">
-          <SidebarWrapper isOpen={isSidebarOpen} onToggle={setIsSidebarOpen} />
-        </div>
+      {/* Header */}
+      <div className="sticky top-0 z-30 h-16 shrink-0">
+        <Header resume={hero.resume} />
+      </div>
 
-        {/* Scrollable Content Container */}
+      {/* Main */}
+      <main className="flex min-h-0 flex-1 flex-col gap-3 overflow-hidden p-3 md:flex-row md:gap-4 md:p-6 xl:gap-6 xl:p-8">
+        {/* Sidebar */}
+        <aside className="shrink-0">
+          <SidebarWrapper />
+        </aside>
+
+        {/* Content */}
         <section
           className={cn(
-            "relative flex-1 min-w-0 h-full flex flex-col items-center rounded-2xl border bg-card shadow-sm overflow-y-auto overflow-x-hidden transition-all duration-300 z-10",
-            isSidebarOpen &&
-              "blur-sm pointer-events-none select-none opacity-80",
+            "scroll-area flex min-h-0 flex-1 flex-col overflow-hidden",
+            "rounded-[2rem] border border-border/70 bg-card/70 shadow-[0_24px_80px_-36px_rgba(15,23,42,0.35)] backdrop-blur-xl",
+            "ring-1 ring-black/5 dark:ring-white/10",
           )}
         >
-          {/* Inner Content Wrapper: Forces all child components to respect section width */}
-          <div className="w-full max-w-full flex flex-col items-center px-4 py-6 sm:px-6 md:px-8 space-y-12">
-            <Hero HeroData={hero} SkillsData={skills} />
-            <Projects data={projects} />
-            <Skills data={skills} />
-            <Experience data={experience} />
-            <Certifications data={certifications} />
-            <About data={about} />
-            <Education data={education} />
-            <Contact />
+          <div className="-mt-px">
+            <Section id="home">
+              <Hero HeroData={hero} SkillsData={skills} />
+            </Section>
+
+            <Section id="projects">
+              <Projects data={projects} />
+            </Section>
+
+            <Section id="skills">
+              <Skills data={skills} />
+            </Section>
+
+            <Section id="experience">
+              <Experience data={experience} />
+            </Section>
+
+            <Section id="certifications">
+              <Certifications data={certifications} />
+            </Section>
+
+            <Section id="about">
+              <About data={about} />
+            </Section>
+
+            <Section id="education">
+              <Education data={education} />
+            </Section>
+
+            <Section id="contact">
+              <Contact />
+            </Section>
+
             <Footer />
           </div>
         </section>

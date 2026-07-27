@@ -23,7 +23,7 @@ export default async function Page() {
     ]);
 
   return (
-    <div className="relative overflow-hidden w-full h-full">
+    <main className="min-h-screen bg-background">
       <ClientLayout
         hero={hero}
         about={about}
@@ -33,6 +33,6 @@ export default async function Page() {
         certifications={certifications}
         education={education}
       />
-    </div>
+    </main>
   );
 }

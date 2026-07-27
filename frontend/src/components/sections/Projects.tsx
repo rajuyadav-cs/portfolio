@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { ExternalLink, Star } from "lucide-react";
 import { FaGithub } from "react-icons/fa6";
@@ -51,9 +52,12 @@ export default function Projects({ data }: ProjectProps) {
             {/* Image */}
 
             <div className="relative h-64 overflow-hidden">
-              <img
+              <Image
                 src={project.image}
                 alt={project.title}
+                width={1200}
+                height={700}
+                unoptimized
                 className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
               />
 

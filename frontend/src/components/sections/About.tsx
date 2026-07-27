@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 
 import { AboutInterface } from "@/types";
@@ -38,9 +39,12 @@ export default function About({ data }: AboutProps) {
           <div className="relative">
             <div className="absolute -inset-4 rounded-3xl bg-linear-to-r from-blue-500/20 via-violet-500/20 to-cyan-500/20 blur-3xl" />
 
-            <img
+            <Image
               src={data.profile_image}
               alt={data.title}
+              width={800}
+              height={1000}
+              unoptimized
               className="relative h-80 w-64 rounded-3xl object-cover ring-1 ring-border shadow-[0_0_60px_rgba(59,130,246,0.18)] sm:h-96 sm:w-80"
             />
           </div>

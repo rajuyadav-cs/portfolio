@@ -10,11 +10,13 @@ export default function ThemeProvider({
   return (
     <NextThemesProvider
       attribute="class"
-      defaultTheme="dark"
-      enableSystem={false}
+      defaultTheme="system"
+      enableSystem
       disableTransitionOnChange
     >
-      {children}
+      <div className="min-h-screen bg-background text-foreground">
+        {children}
+      </div>
     </NextThemesProvider>
   );
 }

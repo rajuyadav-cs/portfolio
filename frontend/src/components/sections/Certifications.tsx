@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { Award, ExternalLink, CalendarDays } from "lucide-react";
 
@@ -52,9 +53,12 @@ export default function Certifications({ data }: CertificationProps) {
             {/* Certificate Image */}
 
             <div className="relative h-56 overflow-hidden">
-              <img
+              <Image
                 src={certificate.certificate_image}
                 alt={certificate.title}
+                width={800}
+                height={500}
+                unoptimized
                 className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
               />
 

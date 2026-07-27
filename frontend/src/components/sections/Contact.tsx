@@ -78,7 +78,7 @@ export default function Contact() {
 
       toast.success("Message sent successfully!");
       setFormData(initialState);
-    } catch (err) {
+    } catch {
       toast.error("Failed to send message. Please try again later.");
     } finally {
       setLoading(false);
@@ -93,11 +93,11 @@ export default function Contact() {
       {/* Section Header */}
       <div className="mb-14 text-center">
         <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl">
-          Let's Work Together
+          Let&apos;s Work Together
         </h2>
         <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-muted-foreground sm:text-base">
           Ready to build something amazing? Feel free to send me a message and
-          I'll get back to you shortly.
+          I&apos;ll get back to you shortly.
         </p>
       </div>
 
@@ -263,11 +263,11 @@ export default function Contact() {
           {/* Callout Card */}
           <div className="rounded-3xl border border-primary/20 bg-linear-to-br from-primary/10 to-transparent p-6 sm:col-span-2 lg:col-span-1">
             <h3 className="text-xl font-bold text-foreground">
-              Let's Build Something Amazing
+              Let&apos;s Build Something Amazing
             </h3>
             <p className="mt-2 text-sm leading-6 text-muted-foreground">
               Have a project in mind, a freelance opportunity, or just want to
-              say hello? I'd love to hear from you.
+              say hello? I&apos;d love to hear from you.
             </p>
           </div>
         </div>

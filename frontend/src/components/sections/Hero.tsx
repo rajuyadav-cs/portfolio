@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { HeroInterface, SkillsInterface } from "@/types";
 
 import { useEffect, useState } from "react";
@@ -47,6 +48,11 @@ export default function Hero({ HeroData, SkillsData }: HeroProps) {
       >
         {/* LEFT */}
         <div className="order-1 flex flex-col items-center text-center lg:items-start lg:text-left">
+          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-3 py-1.5 text-sm font-medium text-primary shadow-sm">
+            <span className="h-2 w-2 rounded-full bg-primary animate-pulse" />
+            Available for new opportunities
+          </div>
+
           <TextGenerateEffect
             words={HeroData.greeting}
             duration={0.8}
@@ -131,15 +137,19 @@ export default function Hero({ HeroData, SkillsData }: HeroProps) {
         {/* IMAGE */}
         <div className="order-2 flex justify-center lg:justify-end">
           <motion.div
-            whileHover={{ scale: 1.03 }}
+            whileHover={{ scale: 1.03, y: -4 }}
             transition={{ duration: 0.35 }}
             className="relative"
           >
-            <div className="absolute -inset-4 rounded-3xl bg-linear-to-r from-blue-500/20 via-violet-500/20 to-cyan-500/20 blur-3xl" />
+            <div className="absolute -inset-4 rounded-4xl bg-linear-to-r from-blue-500/20 via-violet-500/20 to-cyan-500/20 blur-3xl" />
+            <div className="absolute inset-3 rounded-[1.75rem] border border-white/20 dark:border-white/10" />
 
-            <img
+            <Image
               src={HeroData.profile_image}
               alt={HeroData.name}
+              width={800}
+              height={1000}
+              unoptimized
               className="relative h-64 w-52 rounded-3xl object-cover ring-1 ring-border shadow-[0_0_60px_rgba(59,130,246,0.18)] sm:h-80 sm:w-64 lg:h-96 lg:w-80"
             />
           </motion.div>
