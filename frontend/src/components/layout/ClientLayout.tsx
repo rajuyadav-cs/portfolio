@@ -66,7 +66,7 @@ export default function ClientLayout({
       {/* Main */}
       <main className="flex min-h-0 flex-1 flex-col gap-3 overflow-hidden p-3 md:flex-row md:gap-4 md:p-6 xl:gap-6 xl:p-8">
         {/* Sidebar */}
-        <aside className="shrink-0">
+        <aside className="shrink-0 md:shrink-0">
           <SidebarWrapper />
         </aside>
 
@@ -77,9 +77,10 @@ export default function ClientLayout({
             "rounded-[2rem] border border-border/70 bg-card/70 shadow-[0_24px_80px_-36px_rgba(15,23,42,0.35)] backdrop-blur-xl",
             "ring-1 ring-black/5 dark:ring-white/10",
             "min-h-0 max-h-full",
+            "md:max-h-full",
           )}
         >
-          <div className="scroll-area flex-1 overflow-y-auto overflow-x-hidden">
+          <div className="scroll-area flex-1 overflow-y-auto overflow-x-hidden overscroll-contain">
             <Section id="home">
               <Hero HeroData={hero} SkillsData={skills} />
             </Section>
