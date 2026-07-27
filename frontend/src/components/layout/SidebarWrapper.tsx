@@ -13,9 +13,9 @@ export default function SidebarWrapper() {
   return (
     <aside
       className={cn(
-        "w-full overflow-hidden rounded-3xl border border-border bg-card/90 shadow-sm backdrop-blur-xl px-2 py-2 transition-all duration-300 sm:px-3 sm:py-3 md:h-full md:min-h-0",
+        "w-full overflow-hidden rounded-3xl border border-border bg-card/90 shadow-sm backdrop-blur-xl px-2 py-2 transition-all duration-300 sm:px-3 sm:py-3",
         isMobile ? "max-h-20" : "max-h-none",
-        !isMobile && isOpen ? "md:w-56 lg:w-60 xl:w-64" : "md:w-20",
+        !isMobile && isOpen ? "lg:w-56 xl:w-60" : "lg:w-20",
       )}
       aria-label="Sidebar"
     >

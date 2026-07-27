@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   Award,
   BriefcaseBusiness,
@@ -23,7 +24,7 @@ type NavbarProps = {
 };
 
 const navItems = [
-  { name: "Home", icon: House, href: "#home" },
+  { name: "Home", icon: House, href: "#portfolio" },
   { name: "Projects", icon: FolderGit2, href: "#projects" },
   { name: "Skills", icon: Code2, href: "#skills" },
   { name: "Experience", icon: BriefcaseBusiness, href: "#experience" },
@@ -34,6 +35,24 @@ const navItems = [
 ];
 
 export default function Navbar({ open, setOpen, mobile = false }: NavbarProps) {
+  const router = useRouter();
+
+  const handleNavClick = (
+    event: React.MouseEvent<HTMLAnchorElement>,
+    href: string,
+  ) => {
+    if (href === "#portfolio") {
+      event.preventDefault();
+      const panel = document.getElementById("portfolio");
+
+      if (panel) {
+        panel.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      router.push("/");
+    }
+  };
+
   return (
     <div className="flex h-full flex-col overflow-hidden">
       {!mobile && (
@@ -76,12 +95,13 @@ export default function Navbar({ open, setOpen, mobile = false }: NavbarProps) {
               key={name}
               href={href}
               title={name}
+              onClick={(event) => handleNavClick(event, href)}
               className={cn(
                 "group relative flex items-center overflow-hidden rounded-2xl border border-transparent text-muted-foreground transition-all duration-300",
                 "hover:border-primary/20 hover:bg-primary/10 hover:text-primary",
                 "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                 mobile
-                  ? "h-10 min-w-[76px] shrink-0 justify-center px-2"
+                  ? "h-10 min-w-19 shrink-0 justify-center px-2"
                   : "w-full justify-center gap-2 px-2 py-2 md:px-2 md:py-2",
                 open && !mobile ? "justify-start" : "justify-center",
               )}
