@@ -46,7 +46,7 @@ export default function ClientLayout({
   education,
 }: ClientLayoutProps) {
   return (
-    <div className="relative isolate flex h-screen min-h-screen flex-col overflow-hidden bg-background animate-[fadeIn_0.5s_ease-out]">
+    <div className="relative isolate flex h-screen min-h-screen max-h-screen flex-col overflow-hidden bg-background animate-[fadeIn_0.5s_ease-out]">
       {/* Background */}
       <div
         aria-hidden="true"
@@ -73,12 +73,13 @@ export default function ClientLayout({
         {/* Content */}
         <section
           className={cn(
-            "scroll-area flex min-h-0 flex-1 flex-col overflow-hidden",
+            "flex min-h-0 flex-1 flex-col overflow-hidden",
             "rounded-[2rem] border border-border/70 bg-card/70 shadow-[0_24px_80px_-36px_rgba(15,23,42,0.35)] backdrop-blur-xl",
             "ring-1 ring-black/5 dark:ring-white/10",
+            "min-h-0 max-h-full",
           )}
         >
-          <div className="-mt-px">
+          <div className="scroll-area flex-1 overflow-y-auto overflow-x-hidden">
             <Section id="home">
               <Hero HeroData={hero} SkillsData={skills} />
             </Section>
